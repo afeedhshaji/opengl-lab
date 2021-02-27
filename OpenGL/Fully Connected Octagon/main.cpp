@@ -64,7 +64,7 @@ int main(int argc, char **argv)
     /* Glut window configurations */
     glutInitWindowSize(400, 300);     // Specify window size
     glutInitWindowPosition(100, 100); // Specify window position
-    glutCreateWindow("Question 3");   // Use the window name here
+    glutCreateWindow("Question 6");   // Use the window name here
 
     readInput(input_filename);
 
