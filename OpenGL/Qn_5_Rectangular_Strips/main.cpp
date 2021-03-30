@@ -8,6 +8,8 @@
 #include <vector>
 #include <iostream>
 
+#include "../constants.hpp"
+
 using namespace std;
 
 struct Vertex
@@ -18,7 +20,6 @@ struct Vertex
 // Global Variables
 vector<Vertex> vertices;
 
-char input_filename[] = "input.txt";
 double w;
 double h;
 
@@ -82,11 +83,12 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 
     /* Glut window configurations */
-    glutInitWindowSize(500, 500);     // Specify window size
-    glutInitWindowPosition(100, 100); // Specify window position
-    glutCreateWindow("Question 5");   // Use the window name here
+    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT); // Specify window size
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WINDOW_WIDTH) / 2,
+                           (glutGet(GLUT_SCREEN_HEIGHT) - WINDOW_HEIGHT) / 2); // Specify window position
+    glutCreateWindow(TITLENAME);
 
-    readInput(input_filename);
+    readInput(FILENAME);
 
     w = glutGet(GLUT_WINDOW_WIDTH);
     h = glutGet(GLUT_WINDOW_HEIGHT);

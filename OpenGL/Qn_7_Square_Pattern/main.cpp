@@ -8,9 +8,9 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
+#include "../constants.hpp"
 
-int LEVEL = 10;
+using namespace std;
 
 void initFn()
 {
@@ -84,9 +84,10 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_SINGLE);
 
     /* Glut window configurations */
-    glutInitWindowSize(400, 300);     // Specify window size
-    glutInitWindowPosition(100, 100); // Specify window position
-    glutCreateWindow("Question 7");   // Use the window name here
+    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT); // Specify window size
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WINDOW_WIDTH) / 2,
+                           (glutGet(GLUT_SCREEN_HEIGHT) - WINDOW_HEIGHT) / 2); // Specify window position
+    glutCreateWindow(TITLENAME);                                               // Use the window name here
 
     initFn();
 

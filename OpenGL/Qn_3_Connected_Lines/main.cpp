@@ -8,13 +8,12 @@
 #include <vector>
 #include <iostream>
 
+#include "../constants.hpp"
+
 using namespace std;
 
 // Global Variables
 vector<pair<GLfloat, GLfloat>> Points;
-char input_filename[] = "input.txt";
-double w;
-double h;
 
 void readInput(char *filename)
 {
@@ -23,8 +22,18 @@ void readInput(char *filename)
     while (input >> a >> b)
     {
         Points.push_back(make_pair(a, b));
+        Points.push_back(make_pair(a, b));
     };
 
+    // Remove the beginning and end
+    if (Points.size() > 0)
+    {
+        Points.erase(Points.begin());
+    }
+    if (Points.size() > 0)
+    {
+        Points.pop_back();
+    }
     input.close();
 }
 
@@ -33,7 +42,7 @@ void initFn()
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glColor3f(0.0, 0.0, 0.0);
     glPointSize(5.0);
-    glOrtho(0, w, h, 0, -1, 1);
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT); // Clear frame buffer to the set color
     glLoadIdentity();             // Reset co-ordinate system
 }
@@ -42,13 +51,9 @@ void renderFn()
 {
     /* Plot points*/
     glBegin(GL_LINES);
-    for (int i = 0; i < Points.size(); i++)
+    for (auto it : Points)
     {
-        for (int j = i + 1; j < Points.size(); j++)
-        {
-            glVertex2f(Points[i].first, Points[i].second);
-            glVertex2f(Points[j].first, Points[j].second);
-        }
+        glVertex2f(it.first, it.second);
     }
     glEnd();
 
@@ -62,14 +67,13 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_SINGLE);
 
     /* Glut window configurations */
-    glutInitWindowSize(400, 300);     // Specify window size
-    glutInitWindowPosition(100, 100); // Specify window position
-    glutCreateWindow("Question 6");   // Use the window name here
+    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT); // Specify window size
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WINDOW_WIDTH) / 2,
+                           (glutGet(GLUT_SCREEN_HEIGHT) - WINDOW_HEIGHT) / 2); // Specify window position
+    glutCreateWindow(TITLENAME);
 
-    readInput(input_filename);
+    readInput(FILENAME);
 
-    w = glutGet(GLUT_WINDOW_WIDTH);
-    h = glutGet(GLUT_WINDOW_HEIGHT);
     initFn();
 
     /* Display Callback function.

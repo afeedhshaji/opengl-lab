@@ -8,9 +8,9 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
+#include "../constants.hpp"
 
-#define PI 3.141592654
+using namespace std;
 
 // Global Variables
 int mouse_1_down = 0;
@@ -169,12 +169,15 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_SINGLE);
 
     /* Glut window configurations */
-    glutInitWindowSize(500, 500);     // Specify window size
-    glutInitWindowPosition(100, 100); // Specify window position
-    glutCreateWindow("Question 8");   // Use the window name here
+
+    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT); // Specify window size
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WINDOW_WIDTH) / 2,
+                           (glutGet(GLUT_SCREEN_HEIGHT) - WINDOW_HEIGHT) / 2); // Specify window position
+    glutCreateWindow(TITLENAME);                                               // Use the window name here
 
     w = glutGet(GLUT_WINDOW_WIDTH);
     h = glutGet(GLUT_WINDOW_HEIGHT);
+
     initFn();
 
     glutMouseFunc(mouse);
