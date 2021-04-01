@@ -3,7 +3,7 @@
 
 #define PI 3.141592654
 
-char FILENAME[] = "input2.txt";
+char FILENAME[] = "input.txt";
 char TITLENAME[] = "B170282CS";
 
 int WINDOW_WIDTH = 500;
