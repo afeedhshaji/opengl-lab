@@ -18,5 +18,5 @@ Note:- Make the background white.
 Run the program:
 -----------------
     - g++ main.cpp -lglut -lGL -lGLEW -lGLU -o main
-    - ./main 1 (for the first color)
-    - ./main 2 (for the second color)
+    - ./main 1 (for the first color) [https://github.com/afeedh/OpenGL-Snippets/blob/master/screenshots/Q8_1.png]
+    - ./main 2 (for the second color) [https://github.com/afeedh/OpenGL-Snippets/blob/master/screenshots/Q8_2.png]
