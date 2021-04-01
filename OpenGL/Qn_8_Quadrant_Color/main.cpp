@@ -14,6 +14,8 @@ using namespace std;
 
 // Global Variables
 int mouse_1_down = 0;
+int ARG_OPT;
+
 GLfloat w;
 GLfloat h;
 GLfloat colors[3] = {0.0, 0.0, 0.0};
@@ -27,6 +29,7 @@ enum QuadrantColors
     YELLOW = 4
 };
 
+// To get the color based on the quadrant in which the point is in
 int getColorBasedOnQuadrant(GLfloat x, GLfloat y)
 {
     if (x == 0 || y == 0)
@@ -43,6 +46,14 @@ int getColorBasedOnQuadrant(GLfloat x, GLfloat y)
         return QuadrantColors::BLUE;
 }
 
+// To get brightness the of the color based on the condition
+// given in the question :
+// Brightness = (Anglular coverage) / (Π/2)
+// Angle made with the positive x-axis :
+// Case 1 : 1st Quadrant => Tan^−1(y/x)
+// Case 2 : 2nd Quadrant => Π/2 + Tan^−1(y/x)
+// Case 3 : 3rd Quadrant => Tan^−1(y/x)
+// Case 4 : 4th Quadrant => Π/2 + Tan^−1(y/x)
 GLfloat getBrightness(GLfloat x, GLfloat y, int quadrant)
 {
     switch (quadrant)
@@ -97,55 +108,111 @@ void motion(int mx, int my)
 
         glLineWidth(3.0f); // stroke width
 
-        // Get color based on quadrant
+        // Get color based on quadrant and arg options
         int color = getColorBasedOnQuadrant(x - (w / 2), y - (h / 2));
-        switch (color)
+
+        // Alternate color combination
+        if (ARG_OPT == 2)
         {
-        case QuadrantColors::RED:
-            red = getBrightness(x - (w / 2), y - (h / 2), 1);
+            switch (color)
+            {
+            case QuadrantColors::RED:
+                red = getBrightness(x - (w / 2), y - (h / 2), 1);
 
-            colors[0] = red;
-            colors[1] = 0.0;
-            colors[2] = 0.0;
+                colors[0] = red;
+                colors[1] = red;
+                colors[2] = 0.0;
 
-            break;
+                break;
 
-        case QuadrantColors::GREEN:
-            green = getBrightness(x - (w / 2), y - (h / 2), 2);
+            case QuadrantColors::GREEN:
+                green = getBrightness(x - (w / 2), y - (h / 2), 2);
 
-            colors[0] = 0.0;
-            colors[1] = green;
-            colors[2] = 0.0;
+                colors[0] = 0.0;
+                colors[1] = green;
+                colors[2] = green;
 
-            break;
+                break;
 
-        case QuadrantColors::BLUE:
+            case QuadrantColors::BLUE:
 
-            blue = getBrightness(x - (w / 2), y - (h / 2), 3);
+                blue = getBrightness(x - (w / 2), y - (h / 2), 3);
 
-            colors[0] = 0.0;
-            colors[1] = 0.0;
-            colors[2] = blue;
+                colors[0] = 0.0;
+                colors[1] = blue;
+                colors[2] = 0.0;
 
-            break;
+                break;
 
-        case QuadrantColors::YELLOW:
+            case QuadrantColors::YELLOW:
 
-            yellow = getBrightness(x - (w / 2), y - (h / 2), 4);
+                yellow = getBrightness(x - (w / 2), y - (h / 2), 4);
 
-            colors[0] = yellow;
-            colors[1] = yellow;
-            colors[2] = 0.0;
+                colors[0] = yellow;
+                colors[1] = 0.0;
+                colors[2] = yellow;
 
-            break;
+                break;
 
-        default:
-            colors[0] = 0.0;
-            colors[1] = 0.0;
-            colors[2] = 0.0;
+            default:
+                colors[0] = 0.0;
+                colors[1] = 0.0;
+                colors[2] = 0.0;
 
-            break;
-        };
+                break;
+            };
+        }
+        // Original color combination
+        else
+        {
+            switch (color)
+            {
+            case QuadrantColors::RED:
+                red = getBrightness(x - (w / 2), y - (h / 2), 1);
+
+                colors[0] = red;
+                colors[1] = 0.0;
+                colors[2] = 0.0;
+
+                break;
+
+            case QuadrantColors::GREEN:
+                green = getBrightness(x - (w / 2), y - (h / 2), 2);
+
+                colors[0] = 0.0;
+                colors[1] = green;
+                colors[2] = 0.0;
+
+                break;
+
+            case QuadrantColors::BLUE:
+
+                blue = getBrightness(x - (w / 2), y - (h / 2), 3);
+
+                colors[0] = 0.0;
+                colors[1] = 0.0;
+                colors[2] = blue;
+
+                break;
+
+            case QuadrantColors::YELLOW:
+
+                yellow = getBrightness(x - (w / 2), y - (h / 2), 4);
+
+                colors[0] = yellow;
+                colors[1] = yellow;
+                colors[2] = 0.0;
+
+                break;
+
+            default:
+                colors[0] = 0.0;
+                colors[1] = 0.0;
+                colors[2] = 0.0;
+
+                break;
+            };
+        }
 
         glColor3f(colors[0], colors[1], colors[2]);
 
@@ -164,12 +231,17 @@ void renderFn()
 
 int main(int argc, char **argv)
 {
+    if (argc >= 2)
+    {
+        ARG_OPT = stoi(argv[1]);
+        // cout << ARG_OPT;
+    }
+
     /* Glut initialization */
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE);
 
     /* Glut window configurations */
-
     glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT); // Specify window size
     glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WINDOW_WIDTH) / 2,
                            (glutGet(GLUT_SCREEN_HEIGHT) - WINDOW_HEIGHT) / 2); // Specify window position

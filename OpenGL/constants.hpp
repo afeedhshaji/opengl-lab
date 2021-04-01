@@ -1,9 +1,9 @@
-#ifndef Q1_CONSTANTS_H
-#define Q1_CONSTANTS_H
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 #define PI 3.141592654
 
-char FILENAME[] = "input.txt";
+char FILENAME[] = "input2.txt";
 char TITLENAME[] = "B170282CS";
 
 int WINDOW_WIDTH = 500;

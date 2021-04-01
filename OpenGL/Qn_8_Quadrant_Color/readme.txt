@@ -13,3 +13,10 @@ line segment is in 3rd quadrant at an angle from the positive x-axis, then the
 angle covered is and 3 4Π 3 4Π − Π the brightness is determined by the ratio (4*
 Π /3 - Π )/( Π /2). Hence the color is -> RGB (0,0,(4* Π /3 - Π )/( Π /2)).
 Note:- Make the background white.
+
+-----------------
+Run the program:
+-----------------
+    - g++ main.cpp -lglut -lGL -lGLEW -lGLU -o main
+    - ./main 1 (for the first color)
+    - ./main 2 (for the second color)
